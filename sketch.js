@@ -9,10 +9,10 @@ let health = 100;
 let gameWon = false;
 
 function preload() {
-  playerImg = loadImage('assets/boy-removebg-preview.png', () => console.log('Player image loaded'), handleImageError);
-  vaccineImg = loadImage('assets/vacs-removebg-preview.png', () => console.log('Vaccine image loaded'), handleImageError);
-  virusImg = loadImage('assets/virus-removebg-preview.png', () => console.log('Virus image loaded'), handleImageError);
-  bgImg = loadImage('assets/back.png', () => {
+  playerImg = loadImage('boy-removebg-preview.png', () => console.log('Player image loaded'), handleImageError);
+  vaccineImg = loadImage('vacs-removebg-preview.png', () => console.log('Vaccine image loaded'), handleImageError);
+  virusImg = loadImage('virus-removebg-preview.png', () => console.log('Virus image loaded'), handleImageError);
+  bgImg = loadImage('back.png', () => {
     console.log('Background image loaded');
     isLoaded = true;
   }, handleImageError);
