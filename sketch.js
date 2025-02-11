@@ -72,8 +72,8 @@ function draw() {
 }
 
 function touchMoved() {
-  player.x = constrain(touchX - player.width / 2, 0, width - player.width);
-  player.y = constrain(touchY - player.height / 2, 0, height - player.height);
+  player.x = constrain(mouseX - player.width / 2, 0, width - player.width);
+  player.y = constrain(mouseY - player.height / 2, 0, height - player.height);
   return false; // Prevent scrolling
 }
 
