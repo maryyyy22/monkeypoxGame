@@ -12,14 +12,14 @@ function preload() {
   playerImg = loadImage('boy-removebg-preview.png', () => console.log('Player image loaded'), handleImageError);
   vaccineImg = loadImage('vacs-removebg-preview.png', () => console.log('Vaccine image loaded'), handleImageError);
   virusImg = loadImage('virus-removebg-preview.png', () => console.log('Virus image loaded'), handleImageError);
-  bgImg = loadImage('back.png ', () => {
+  bgImg = loadImage('back.png', () => {
     console.log('Background image loaded');
     isLoaded = true;
   }, handleImageError);
 }
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight);
   player = new Player();
   frameRate(60);
 }
@@ -71,6 +71,16 @@ function draw() {
   }
 }
 
+function touchMoved() {
+  player.x = constrain(touchX - player.width / 2, 0, width - player.width);
+  player.y = constrain(touchY - player.height / 2, 0, height - player.height);
+  return false; // Prevent scrolling
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function displayLoading() {
   textSize(32);
   textAlign(CENTER, CENTER);
@@ -118,19 +128,11 @@ class Player {
     this.width = 120;
     this.height = 120;
     this.speed = 5;
-    this.direction = 0;
   }
 
   update() {
-    if (keyIsDown(LEFT_ARROW)) this.x -= this.speed;
-    if (keyIsDown(RIGHT_ARROW)) this.x += this.speed;
-    if (keyIsDown(UP_ARROW)) this.direction = 0;
-    if (keyIsDown(DOWN_ARROW)) this.direction = 1;
-
-    if (this.direction === 0 && this.y > 0) this.y -= this.speed;
-    else if (this.direction === 1 && this.y < height - this.height) this.y += this.speed;
-
     this.x = constrain(this.x, 0, width - this.width);
+    this.y = constrain(this.y, 0, height - this.height);
   }
 
   show() {
@@ -138,7 +140,7 @@ class Player {
   }
 
   hits(obstacle) {
-    let d = dist(this.x, this.y, obstacle.x, obstacle.y);
+    let d = dist(this.x + this.width / 2, this.y + this.height / 2, obstacle.x + obstacle.width / 2, obstacle.y + obstacle.height / 2);
     return d < this.width / 2 + obstacle.width / 2;
   }
 }
